@@ -1,0 +1,94 @@
+/*
+ * THU ISAC Review — Calm Administrative UI (2026-11)
+ * Single shared visual layer, loaded last on every hosted HTML page.
+ * Visual-only: no authentication, data operations, or routing changes.
+ */
+:root {
+  --brand:#1a5c96; --brand-hover:#164d7d; --brand-light:#eff6ff;
+  --brand-border:#bfdbfe; --bg:#f8fafc; --surface:#fff;
+  --border:#e5e7eb; --border-strong:#cbd5e1;
+  --text-primary:#111827; --text-secondary:#475569; --text-muted:#64748b;
+  --success:#15803d; --danger:#b91c1c; --warning:#b45309;
+  --radius-sm:6px; --radius:8px; --radius-lg:10px; --radius-xl:12px;
+  --shadow-sm:0 1px 2px rgba(15,23,42,.035);
+  --shadow:0 1px 3px rgba(15,23,42,.05);
+  --shadow-md:0 8px 24px rgba(15,23,42,.09);
+  --transition:160ms ease;
+}
+html { color-scheme:light; }
+body { color:#111827; background-color:#f8fafc; -webkit-font-smoothing:antialiased; }
+:where(button,a,input,select,textarea,[role="button"]):focus-visible {
+  outline:2px solid #2563eb; outline-offset:2px;
+}
+:where(input,select,textarea) { font-family:inherit; }
+:where(input,select,textarea)::placeholder { color:#94a3b8; opacity:1; }
+:where(input[type="checkbox"],input[type="radio"]) { accent-color:#1a5c96; }
+:where(.text-slate-400) { color:#64748b; }
+/* Existing static CRUD pages: toolbars, tables and filter controls */
+.toolbar { gap:10px; padding:12px 22px; background:#fff; border-color:#e5e7eb; }
+.filter-row { padding:10px 22px; background:#f8fafc; border-color:#e5e7eb; }
+.search-input { height:38px; border-color:#d8e0e9; border-radius:7px; color:#111827; }
+.search-input:focus { border-color:#2563eb; box-shadow:0 0 0 3px rgba(37,99,235,.10); }
+.search-wrap { max-width:100%; }
+.btn { border-radius:7px; font-weight:600; transition:background-color .16s,border-color .16s,color .16s; }
+.btn-primary { background:#1a5c96; border-color:#1a5c96; box-shadow:none; }
+.btn-primary:hover { background:#164d7d; border-color:#164d7d; }
+.btn-secondary { color:#334155; background:#fff; border-color:#d8e0e9; }
+.btn-secondary:hover { border-color:#cbd5e1; background:#f8fafc; }
+.btn-danger { background:#fff; border-color:#fecaca; color:#b91c1c; }
+.btn-success-solid,.btn-indigo-solid { background:#1a5c96; border-color:#1a5c96; }
+.btn-success-solid:hover,.btn-indigo-solid:hover { background:#164d7d; }
+.filter-pill { border-radius:7px; background:#fff; border-color:#d8e0e9; }
+.filter-pill.active { background:#eff6ff; color:#1a5c96; border-color:#bfdbfe; }
+.filter-pill .pill-count { background:#e2e8f0; color:#475569; }
+.filter-dropdown { border-radius:9px; border-color:#e5e7eb; box-shadow:0 10px 30px rgba(15,23,42,.10); }
+/* Tables — preserve existing widths, sticky headers and JavaScript sorting */
+table { font-variant-numeric:tabular-nums; }
+thead { background:#f8fafc; }
+thead th { background:#f8fafc; color:#64748b; font-size:12px; font-weight:650; letter-spacing:0; }
+tbody tr { transition:background-color .12s ease; }
+tbody tr:hover { background-color:#f8fafc; }
+tbody td { border-color:#edf0f4; color:#334155; }
+:where(th,td) { line-height:1.5; }
+:where(.table-container,.table-wrapper,.table-scroll,.table-wrap) { scrollbar-color:#cbd5e1 transparent; }
+/* Inputs within modal forms */
+:where(.modal,.drawer,.form-panel,.form-group) :where(input:not([type="checkbox"]):not([type="radio"]),select,textarea) {
+  border-color:#d8e0e9; border-radius:7px;
+}
+:where(.modal,.drawer,.form-panel,.form-group) :where(input,select,textarea):focus {
+  outline:2px solid rgba(37,99,235,.25); outline-offset:1px;
+}
+/* React/Tailwind review and settings pages: tone down over-sized rounded corners/shadows */
+.rounded-\[1\.5rem\],.rounded-3xl { border-radius:12px; }
+.shadow-xl,.shadow-2xl,.shadow-lg { box-shadow:0 3px 12px rgba(15,23,42,.07); }
+.shadow-md,.shadow-sm { box-shadow:0 1px 3px rgba(15,23,42,.045); }
+.bg-slate-50 { background-color:#f8fafc; }
+.bg-blue-600 { background-color:#1a5c96; }
+.hover\:bg-blue-700:hover { background-color:#164d7d; }
+.text-blue-600 { color:#1a5c96; }
+.border-blue-600 { border-color:#1a5c96; }
+.bg-blue-50 { background-color:#eff6ff; }
+/* Existing review panels often over-emphasize text; retain useful hierarchy */
+:where(.font-black) { font-weight:700; }
+:where(.tracking-widest) { letter-spacing:.055em; }
+/* Hosted dashboard shell: replace dark sidebar with calm light navigation */
+#sidebar { background:#fff; border-right:1px solid #e5e7eb; }
+#sidebar .nav-item { border-radius:7px; color:#475569; }
+#sidebar .nav-item:hover:not(.active) { background:#f1f5f9; color:#111827; }
+#sidebar .nav-item.active { background:#eff6ff; color:#1a5c96; font-weight:650; }
+#sidebar .nav-group-label { color:#64748b; }
+#topbar { border-bottom:1px solid #e5e7eb; box-shadow:none; }
+.sidebar-item { border-left:0!important; border-radius:7px; color:#475569; }
+.sidebar-item.active { border-left:0!important; background:#eff6ff!important; color:#1a5c96!important; }
+.sidebar-item:hover:not(.active) { background:#f1f5f9; color:#0f172a; }
+/* Accessible compact visual focus; never hide focus for keyboard users */
+:where(button,a,[role="button"]) { -webkit-tap-highlight-color:transparent; }
+@media(max-width:768px) {
+  .toolbar,.filter-row { padding:10px 14px; }
+  .search-wrap { flex:1 1 200px; }
+  .toolbar-actions { flex-wrap:wrap; }
+  table { min-width:max-content; }
+}
+@media(prefers-reduced-motion:reduce) {
+  *,*::before,*::after { animation-duration:.01ms!important; transition-duration:.01ms!important; scroll-behavior:auto!important; }
+}
